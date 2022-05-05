@@ -1,0 +1,1 @@
+Su código 2FA es:  {{ $code }}
