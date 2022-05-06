@@ -1,61 +1,81 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+## Prueba Técnica Emmanuel Tribiño
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p> 
+## Modo de instalación y configuración
+A continuación explicaré el modo de instalación de este proyecto sean de manera local o en un servidor, en este caso lo haré de manera local.
 
-## About Laravel
+Debemos tener encendido los servicios de Apache y MySql
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+![Encender servicios Apache y Mysql](https://i.imgur.com/vH0gS9x.png)
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Tambien debemos tener instalado Git ya que clonaremos el proyecto.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Abrimos una Terminal y nos ubicamos en la carpeta htdocs o www.
 
-## Learning Laravel
+![Ubicación de la carpeta htdocs en el terminal](https://i.imgur.com/GJwDzP1.png)
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Una vez que estemos allí clonaremos el proyecto con el siguiente comando
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+`git clone https://github.com/detz05/appAuth.git`
 
-## Laravel Sponsors
+Esperamos a que termine el proceso de clonación
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+![Clonando el proyecto](https://i.imgur.com/fDq81VL.png)
 
-### Premium Partners
+Una vez culminado el proceso desde la misma terminal nos úbicamos en la carpeta del proyecto
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[OP.GG](https://op.gg)**
+![Entrar a la carpeta del proyecto](https://i.imgur.com/YZNYPuq.png)
 
-## Contributing
+Para el siguiente proceso debemos tener instalado composer.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Ejecutamos el siguiente comando desde el terminal
 
-## Code of Conduct
+`composer update`
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Y esperamos que culmine el proceso
 
-## Security Vulnerabilities
+![Ejecutar el comando de composer](https://i.imgur.com/Ce4CgSd.png)
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Luego de eso nos vamos a la carpeta del proyecto y buscamos el archivo
 
-## License
+`.env.example`
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+![Buscar el archivo .env.example](https://i.imgur.com/spIsEmf.png)
+
+Y reemplazamos el nombre por
+
+`.env`
+
+![Cambiar el nombre del archivo .env.example](https://i.imgur.com/bCJ1wGD.png)
+
+Luego de eso lo abrimos con nuestro editor de texto preferido y configuramos los datos para la conexión a la base de datos
+
+![Configuración del .env](https://i.imgur.com/EV3VW30.png)
+
+Muy importante configurar el servicio stmp ya que el la aplicación envia correo para la verificación 2F
+
+Ahora procederemos a crear la base de datos.
+
+Abrimos nuestro administrador de base de datos preferida, en mi caso NAVICAT y creamos una nueva base de datos
+con el nombre que asignamos en archivo .env
+
+![Creación de la base de datos](https://i.imgur.com/QIbZl9g.png)
+![Creación de la base de datos](https://i.imgur.com/V2XPrks.png)
+
+Una vez creada procedemos a importar el script sql que está en la carpeta del proyecto
+
+![Creación de la base de datos](https://i.imgur.com/KcizPPq.png)
+
+Terminamos con la creación de la base de datos.
+
+Como ya tenemos iniciado los servicios de Apache y MySql procedemos a verificar que el proyecto corre bien
+
+Abrimos la dirección que configuramos en el archivo .env
+
+![Verificamos si la aplicación corre](https://i.imgur.com/rFL2vFg.png)
+
+Si se muestra esta pantalla quiere decir que todo está correctamente
+
+Con esto finalizamos el proceso de instalación y configuración del proyecto.
+
+
+## COMO USAR LA APLICACIÓN
