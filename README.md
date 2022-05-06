@@ -51,7 +51,7 @@ Luego de eso lo abrimos con nuestro editor de texto preferido y configuramos los
 
 ![Configuración del .env](https://i.imgur.com/EV3VW30.png)
 
-Muy importante configurar el servicio stmp ya que el la aplicación envia correo para la verificación 2F
+Muy importante configurar el servicio smtp ya que el la aplicación envia correo para la verificación 2F
 
 Ahora procederemos a crear la base de datos.
 
@@ -71,6 +71,7 @@ Como ya tenemos iniciado los servicios de Apache y MySql procedemos a verificar 
 
 Abrimos la dirección que configuramos en el archivo .env
 
+![Verificamos si la aplicación corre](https://i.imgur.com/bTpXTRM.png)
 ![Verificamos si la aplicación corre](https://i.imgur.com/rFL2vFg.png)
 
 Si se muestra esta pantalla quiere decir que todo está correctamente
