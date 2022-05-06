@@ -33,7 +33,7 @@
                 </select>
             </div>
             <div class="form-group">
-                <input type="text" class="form-control @if(!$isValid) {{ empty($document_number) ? 'is-invalid' : '' }} @endif" wire:model="document_number" wire:keydown="change('document_number')" placeholder="Número del Documento" maxlength="10">
+                <input type="text" class="form-control @if(!$isValid) {{ empty($document_number) ? 'is-invalid' : '' }} @endif" wire:model="document_number" wire:keydown="change('document_number')" placeholder="Número del Documento" maxlength="10" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*?)\..*/g, '$1');">
             </div>
             <div class="form-group">
                 <input type="text" id="phone" class="form-control @if(!$isValid) {{ empty($phone) ? 'is-invalid' : '' }} @endif" wire:model="phone" wire:keydown="change('phone')" placeholder="Número de Telefono">
