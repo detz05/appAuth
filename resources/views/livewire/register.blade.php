@@ -15,9 +15,6 @@
         </div>
         @else
         <div>
-            <pre>
-                {{ $terms }}
-            </pre>
             <div class="form-group">
                 <input type="text" class="form-control @if(!$isValid) {{ empty($name) ? 'is-invalid' : '' }} @endif" wire:model="name" wire:keydown="change('name')" placeholder="Nombre/s">
             </div>
