@@ -78,5 +78,3 @@ Si se muestra esta pantalla quiere decir que todo está correctamente
 
 Con esto finalizamos el proceso de instalación y configuración del proyecto.
 
-
-## COMO USAR LA APLICACIÓN
