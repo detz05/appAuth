@@ -15,19 +15,15 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    if((Auth::check())):
-        return redirect("/home");
-    else:
-        return view('login');
-    endif;
+    return view('login');
 })->name("login");
 
 Route::get('/register', function () {
-    if((Auth::check())):
-        return redirect("/home");
-    else:
-        return view('register');
-    endif;
+    return view('register');
+});
+
+Route::get('/edit/{ids}', function () {
+    return view('edit');
 });
 
 Route::get('/logout', function () {

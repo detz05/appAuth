@@ -23,10 +23,10 @@
         </li>
         @else
         <li class="nav-item">
-            <a class="nav-link active" href="{{ env('APP_URL', 'http://localhost') }}/">Login</a>
+            <a class="nav-link active" href="{{ env('APP_URL', 'http://localhost') }}/">Listado</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="{{ env('APP_URL', 'http://localhost') }}/register">Registro</a>
+            <a class="nav-link" href="{{ env('APP_URL', 'http://localhost') }}/register">Registrar usuario</a>
         </li>
         @endif
     </ul>
@@ -44,6 +44,7 @@
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.8/jquery.mask.min.js" integrity="sha512-hAJgR+pK6+s492clbGlnrRnt2J1CJK6kZ82FZy08tm6XG2Xl/ex9oVZLE6Krz+W+Iv4Gsr8U2mGMdh0ckRH61Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="{{ asset('js/validation.js') }}"></script>
     @yield('script')
     @livewireScripts
     <script>

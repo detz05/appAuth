@@ -1,5 +1,5 @@
 <div>
-    <h4 class="card-title text-center">Registrarse</h4>
+    <h4 class="card-title text-center">Editar {{ $ids }}</h4>
     <div class="col-md-12 d-flex justify-content-center">
         <div>
             <div class="form-group">
@@ -49,14 +49,8 @@
             <div class="form-group">
                 <input type="text" class="form-control @if(!$isValid) {{ empty($street) ? 'is-invalid' : '' }} @endif" wire:model="street" wire:keydown="change('street')" placeholder="Dirección">
             </div>
-            <div class="form-check">
-                <input class="form-check-input @if(!$isValid) {{ empty($terms) ? 'is-invalid' : '' }} @endif" type="checkbox" wire:model="terms" wire:change="change('terms')" wire:click="change('terms')" />
-                <label class="form-check-label" for="defaultCheck1">
-                  Acepto los <a href="#">Términos y Condiciones</a>
-                </label>
-            </div>
             <div class="form-group text-center">
-                <button type="button" wire:click="verifyTF" class="btn btn-success">Registrar</button>
+                <button type="button" wire:click="verifyTF" class="btn btn-success">Actualizar</button>
             </div>
         </div>
     </div>

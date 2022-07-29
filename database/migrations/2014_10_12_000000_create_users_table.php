@@ -22,9 +22,10 @@ class CreateUsersTable extends Migration
             $table->integer('document_number');
             $table->string('phone');
             $table->string('email');
-            $table->string('password')->default(Hash::make("123"));
-            $table->integer('code_two_fa');
-            $table->boolean('active')->default(false);
+            $table->string('password')->default(Hash::make("abcdefghijk123"));
+            $table->unsignedInteger('categories_id');
+            $table->string('country');
+            $table->string('street');
             $table->timestamps();
         });
     }

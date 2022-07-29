@@ -15,9 +15,11 @@ class Login extends Component
     public $email;
     public $isValid = false;
     public $isEmpty = false;
+    public $data;
 
     public function render()
     {
+        $this->data = User::get();
         return view('livewire.login');
     }
 
@@ -68,6 +70,31 @@ class Login extends Component
             /*redirect("/register");*/
         endif;
         //dd($this->email);
+    }
+
+    public function delete($id)
+    {
+        $del = User::where("id", $id)->delete();
+
+        if($del):
+            return $this->dispatchBrowserEvent('swal', [
+                'title' => 'Genial!',
+                'text' => 'El usuario ha sido eliminado!',
+                'timer' => 3000,
+                'icon' => 'success',
+                'toast' => true,
+                'position' => 'top-right',
+            ]);
+        else:
+            return $this->dispatchBrowserEvent('swal', [
+                'title' => 'Mal!',
+                'text' => 'No se pudo eliminar el usuario!',
+                'timer' => 3000,
+                'icon' => 'error',
+                'toast' => true,
+                'position' => 'top-right',
+            ]);
+        endif;
     }
 
     public function change($item)

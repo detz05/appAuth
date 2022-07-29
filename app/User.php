@@ -2,9 +2,11 @@
 
 namespace App;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\categorie;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
@@ -17,7 +19,13 @@ class User extends Authenticatable
         'document_number',
         'phone',
         'email',
-        'code_two_fa',
-        'active',
+        'categories_id',
+        'country',
+        'street',
     ];
+
+    public function getCategorie(): BelongsTo
+    {
+        return $this->belongsTo(categorie::class, 'categories_id', 'id');
+    }
 }

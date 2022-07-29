@@ -1,25 +1,40 @@
 <div>
-    <h4 class="card-title text-center">Iniciar Sesión</h4>
+    <h4 class="card-title text-center">Listado</h4>
     <div class="col-md-12 d-flex justify-content-center">
-        <div>
-            @if($isValid)
-            <div class="form-group">
-                <input type="text" class="form-control @if(!$isEmpty) {{ empty($code) ? 'is-invalid' : '' }} @endif" wire:model="code" placeholder="Código de verificación">
-            </div>
-            <div class="form-group text-center">
-                <button type="button" wire:click="validateLogin" class="btn btn-success">Entrar</button>
-            </div>
-            <div class="form-group text-center">
-                <button type="button" wire:click="resendCode" class="btn btn-info">Reenviar Código</button>
-            </div>
-            @else
-            <div class="form-group">
-                <input type="text" class="form-control @if(!$isEmpty) {{ empty($email) ? 'is-invalid' : '' }} @endif" wire:model="email" wire:keydown="change('email')" placeholder="Correo electronico">
-            </div>
-            <div class="form-group text-center">
-                <button type="button" wire:click="verifyTF" class="btn btn-success">Validar</button>
-            </div>
-            @endif
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Nombre y Apellido</th>
+                        <th>Cédula</th>
+                        <th>Telefono</th>
+                        <th>Correo</th>
+                        <th>Categoria</th>
+                        <th>País</th>
+                        <th>Dirección</th>
+                        <th>Acción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($data as $user)
+                    <tr>
+                        <td scope="row">{{ $user->id }}</td>
+                        <td>{{ $user->name . " " .$user->lstname }}</td>
+                        <td>{{ $user->document_number }}</td>
+                        <td>{{ $user->phone }}</td>
+                        <td>{{ $user->email }}</td>
+                        <td>{{ $user->getCategorie->name }}</td>
+                        <td>{{ $user->country }}</td>
+                        <td>{{ $user->street }}</td>
+                        <td>
+                            <button type="button"  wire:click="delete({{ $user->id }})" class="btn btn-danger btn-sm"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                            <a href="{{ env('APP_URL', 'http://localhost') }}/edit/{{ $user->id }}" type="button" class="btn btn-warning btn-sm"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
         </div>
     </div>
 </div>

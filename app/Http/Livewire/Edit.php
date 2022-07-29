@@ -6,10 +6,12 @@ use App\User;
 use App\categorie;
 use GuzzleHttp\Client;
 use Livewire\Component;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;    
 
-class Register extends Component
+class Edit extends Component
 {
+    public $ids;
     public $name;
     public $lstname;
     public $document_type;
@@ -29,8 +31,21 @@ class Register extends Component
     public $user_country = array();
 
 
-    public function render()
+    public function mount()
     {
+        $this->ids = request()->ids;
+        $user = User::where("id", $this->ids)->first();
+        $this->name = $user->name;
+        $this->lstname = $user->lstname;
+        $this->country_ = $user->country;
+        $this->street = $user->street;
+        $this->categorie = $user->categories_id;
+        $this->document_number = $user->document_number;
+        $this->phone = $user->phone;
+        $this->email = $user->email;
+        $this->emailrep = $user->email;
+        $this->document_type = $user->document_type;
+        
         $this->country = array();
         $client = new Client();
         $res = $client->request('GET', 'https://api.first.org/data/v1/countries?region=South%20America');
@@ -43,8 +58,11 @@ class Register extends Component
             ]);
         }
         $this->categories = categorie::get();
+    }
 
-        return view('livewire.register');
+    public function render()
+    {
+        return view('livewire.edit');
     }
 
     public function verifyTF()
@@ -104,18 +122,10 @@ class Register extends Component
                     'position' => 'top-right',
                 ]);
             else:
-                $checkIfExist = User::where("email", $this->email)->orWhere("document_number", $this->document_number)->first();
-                if($checkIfExist):
-                    return $this->dispatchBrowserEvent('swal', [
-                        'title' => 'Mal!',
-                        'text' => 'El correo o número de documento ya está registrado en el sistema!',
-                        'timer' => 3000,
-                        'icon' => 'error',
-                        'toast' => true,
-                        'position' => 'top-right',
-                    ]);
-                else:
-                    $re = User::insertGetId([
+                $checkMail = User::where("email", $this->email)->first();
+
+                if(!empty($checkMail)):
+                    $re = DB::table("users")->where("id", $this->ids)->update([
                         'name' => $this->name,
                         'lstname' => $this->lstname,
                         'document_type' => $this->document_type,
@@ -127,32 +137,12 @@ class Register extends Component
                         'country' => $this->country_
                     ]);
     
-                    if(is_numeric($re)):
-                        
-                        Mail::send('mail', ["type" => "user"], function ($message) {
-                            $message->from("$this->email", 'Usuario');
-                            $message->to($this->email)->subject('Registro exitoso');
-                        });
-
-                        foreach($this->country as $c):
-
-                            array_push($this->user_country, [
-                                "code" => $c['code'],
-                                "country" => $c['country'],
-                                "total_user" => User::where("country", $c['code'])->count()
-                            ]);
-
-                        endforeach;
-                        
-                        Mail::send('mail', ["type" => "admin", "data" => $this->user_country], function ($message) {
-                            $message->from("$this->email", 'Administrador');
-                            $message->to($this->email)->subject('Nuevo Registro');
-                        });
+                    if($re):
 
                         $this->finish = true;
                         $this->dispatchBrowserEvent('swal', [
                             'title' => 'Genial!',
-                            'text' => 'Se ha registro el usuario correctamente!',
+                            'text' => 'Se ha actualizado el usuario correctamente!',
                             'timer' => 3000,
                             'icon' => 'success',
                             'toast' => true,
@@ -164,14 +154,64 @@ class Register extends Component
                     else:
                         return $this->dispatchBrowserEvent('swal', [
                             'title' => 'Mal!',
-                            'text' => 'Se produjo un problema al registrar el usuario, por favor intente nuevamente!',
+                            'text' => 'Se produjo un problema al actualizar el usuario, por favor intente nuevamente!',
                             'timer' => 3000,
                             'icon' => 'error',
                             'toast' => true,
                             'position' => 'top-right',
                         ]);
                     endif;
+                else:
+                    $checkIfExist = User::where("email", $this->email)->orWhere("document_number", $this->document_number)->first();
+                    if($checkIfExist):
+                        return $this->dispatchBrowserEvent('swal', [
+                            'title' => 'Mal!',
+                            'text' => 'El correo o número de documento ya está registrado en el sistema!',
+                            'timer' => 3000,
+                            'icon' => 'error',
+                            'toast' => true,
+                            'position' => 'top-right',
+                        ]);
+                    else:
+                        $re = User::where("id", request("ids"))->update([
+                            'name' => $this->name,
+                            'lstname' => $this->lstname,
+                            'document_type' => $this->document_type,
+                            'document_number' => $this->document_number,
+                            'phone' => $this->phone,
+                            'email' => $this->email,
+                            'categories_id' => $this->categorie,
+                            'street' => $this->street,
+                            'country' => $this->country_
+                        ]);
+        
+                        if($re):
+    
+                            $this->finish = true;
+                            $this->dispatchBrowserEvent('swal', [
+                                'title' => 'Genial!',
+                                'text' => 'Se ha actualizado el usuario correctamente!',
+                                'timer' => 3000,
+                                'icon' => 'success',
+                                'toast' => true,
+                                'position' => 'top-right',
+                            ]);
+    
+                            sleep(1);
+                            return redirect(request()->header('Referer'));
+                        else:
+                            return $this->dispatchBrowserEvent('swal', [
+                                'title' => 'Mal!',
+                                'text' => 'Se produjo un problema al actualizar el usuario, por favor intente nuevamente!',
+                                'timer' => 3000,
+                                'icon' => 'error',
+                                'toast' => true,
+                                'position' => 'top-right',
+                            ]);
+                        endif;
+                    endif;
                 endif;
+                
 
             endif;
         endif;
